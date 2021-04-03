@@ -1,55 +1,58 @@
 <script>
-	import { prepareAndRunStyle, drawCanvas } from '$lib/runStyle.js'; //
-	// import SvelteMarkdown from "svelte-markdown";
-	import Nav from '$lib/Nav.svelte';
+	import { prepareAndRunStyle, drawCanvas } from '../runStyle'; //
 	import { onMount } from 'svelte';
 
-	// import Tutorial from "./Tutorial.svelte";
-	let initFinished = false;
-	const initialSize = 135;
-	let imageSize = initialSize; // options are 135, 270, 360 and 540
-	let exampleSize = initialSize;
+	let hasLoaded = false;
+	let canvasSize = 135;
+	let style = 'gogh'; //"candy" "rain"
+	let contentImage = 'birds';
 
-	const initialStyle = 'gogh'; //"candy" "rain"
-	let style = initialStyle;
-	let exampleStyle = initialStyle;
+	$: drawCanvas(contentImage + '.jpg', 'contentCanvas', canvasSize, hasLoaded);
+	$: drawCanvas(style + '.jpg', 'styleCanvas', 200, hasLoaded);
 
-	$: drawCanvas('birds.jpg', 'fixedCanvas', exampleSize, initFinished);
-	$: drawCanvas(exampleStyle + '.jpg', 'styleCanvas', 200, initFinished);
+	$: prepareAndRunStyle(contentImage + '.jpg', 'resultCanvas', canvasSize, style, hasLoaded);
 
-	$: prepareAndRunStyle('birds.jpg', 'fixedStyleCanvas', exampleSize, exampleStyle);
-
-	onMount(async () => {
-		initFinished = true;
+	onMount(() => {
+		hasLoaded = true;
 	});
 </script>
 
-<Nav />
 <main>
 	<h2>Lets perform a style transfer on a pre-selected image</h2>
 	<canvas id="styleCanvas" width={200} height={200} />
 	<h3>You can change style and size:</h3>
 	<label>
 		Style:
-		<input type="radio" bind:group={exampleStyle} value="gogh" />
+		<input type="radio" bind:group={style} value="gogh" />
 		Van Gogh
-		<input type="radio" bind:group={exampleStyle} value="candy" />
+		<input type="radio" bind:group={style} value="candy" />
 		Candy
-		<input type="radio" bind:group={exampleStyle} value="rain" />
+		<input type="radio" bind:group={style} value="rain" />
 		Rain Princess
 	</label>
 	<br />
 	Size:
 	{#each [135, 200, 300, 350, 500] as value}
-		<input type="radio" bind:group={exampleSize} {value} />&emsp;{value}&emsp;
+		<input type="radio" bind:group={canvasSize} {value} />&emsp;{value}&emsp;
 	{/each}
 	px in both dimensions.
 	<br />
 	The maximum possible size depends on your device. Large sizes might lead to problems.
+	<br />
+	Content image:
+	<label>
+		Style:
+		<input type="radio" bind:group={contentImage} value="birds" />
+		Birds
+		<input type="radio" bind:group={contentImage} value="neckar" />
+		Neckar
+		<input type="radio" bind:group={contentImage} value="castle" />
+		Castle
+	</label>
 	<br /><br />
 
-	<canvas id="fixedCanvas" width={exampleSize} height={exampleSize} />
-	<canvas id="fixedStyleCanvas" width={initialSize} height={exampleSize} />
+	<canvas id="contentCanvas" width={canvasSize} height={canvasSize} />
+	<canvas id="resultCanvas" width={canvasSize} height={canvasSize} />
 
 	<h2>The complete style transfer is run locally on your computer.</h2>
 
@@ -61,7 +64,6 @@
 	</h2>
 </main>
 
-<!-- <Tutorial /> -->
 <style>
 	main {
 		text-align: center;

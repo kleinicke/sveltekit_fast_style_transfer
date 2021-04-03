@@ -1,10 +1,10 @@
 <!-- source: Ruben Leija, https://linguinecode.com/post/create-a-navbar-in-svelte-->
 <script>
-	import { onMount } from 'svelte';
 	export let chosenNav = 'start';
 
 	// Show mobile icon and display menu
 	let showMobileMenu = false;
+	let windowWidth;
 
 	// List of navigation items
 	const navItems = [
@@ -17,21 +17,10 @@
 	// Mobile menu click event handler
 	const handleMobileIconClick = () => (showMobileMenu = !showMobileMenu);
 
-	// Media match query handler
-	const mediaQueryHandler = (e) => {
-		// Reset mobile state
-		if (!e.matches) {
-			showMobileMenu = false;
-		}
-	};
-
-	// Attach media query listener on mount hook
-	onMount(() => {
-		const mediaListener = window.matchMedia('(max-width: 767px)');
-
-		mediaListener.addListener(mediaQueryHandler);
-	});
+	$: showMobileMenu = windowWidth < 767;
 </script>
+
+<svelte:window bind:innerWidth={windowWidth} />
 
 <nav>
 	<div class="inner">
