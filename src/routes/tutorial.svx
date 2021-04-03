@@ -1,7 +1,4 @@
-<script lang="ts">
-	import Nav from '$lib/Nav.svelte';
-</script>
-<Nav/>
+
 
 <main>
 
@@ -37,7 +34,7 @@ The full command to run the model is:
 python neural_style/neural_style.py train --dataset dataset --style-image images/style-images/candy.jpg --save-model-dir model --epochs 2 --cuda 1
 ```
 
-The model need to be downloaded before the notebook is suspended. Therefore regularly check the process and be come back shortly after the training ended.  
+The model need to be downloaded before the notebook is suspended. Therefore regularly check the process and be come back shortly after the training ended.
 In the next step the model needs to be converted to an ONNX model. This can also be done locally with the following command.
 
 ```bash
@@ -217,7 +214,7 @@ The solution to this problem might be to use TensorFlow.js instead of ONNX.js. T
 ## Sources
 
 I used several tutorials to help pages to build this solution.
-How to use the ONNX model is explained in this [stackexchange answer](https://stackoverflow.com/questions/60281255/create-tensors-from-image-for-onnx-js/60301666#60301666).  
+How to use the ONNX model is explained in this [stackexchange answer](https://stackoverflow.com/questions/60281255/create-tensors-from-image-for-onnx-js/60301666#60301666).
 To optimize analyze the problem of the ONNX model [this](https://github.com/microsoft/onnxjs/issues/168) issue was helpful.
 
 Some overall background was provided with [this very nice tutorial on youtube](https://www.youtube.com/watch?v=Vs730jsRgO8) and [this tutorial on medium](https://heartbeat.fritz.ai/building-an-image-recognition-app-using-onnx-js-c7147f4f291b).
@@ -231,8 +228,8 @@ This website was created by Florian Kleinicke. Feel free to contact me [on Githu
 </main>
 <style>
   main {
-    margin-right: 200px;
-    margin-left: 200px;
+    margin-right: 15%;
+    margin-left: 15%;
     margin-top: 50px;
     padding-bottom: 100px;
   }
