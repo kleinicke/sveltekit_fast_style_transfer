@@ -2,16 +2,21 @@
 	import { prepareAndRunStyle, drawCanvas } from '../runStyle'; //
 	import { onMount } from 'svelte';
 
+	// import('/modules/my-module.js')
+	// .then((module) => {
+	// 	// Do something with the module.
+	// });
+
 	let hasLoaded = false;
 	let canvasSize = 135;
 	let style = 'gogh'; //"candy" "rain"
 	let contentImage = 'birds';
-
+	// $: if (typeof window !== 'undefined') {
 	$: drawCanvas(contentImage + '.jpg', 'contentCanvas', canvasSize, hasLoaded);
 	$: drawCanvas(style + '.jpg', 'styleCanvas', 200, hasLoaded);
 
 	$: prepareAndRunStyle(contentImage + '.jpg', 'resultCanvas', canvasSize, style, hasLoaded);
-
+	// }
 	onMount(() => {
 		hasLoaded = true;
 	});

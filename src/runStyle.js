@@ -1,8 +1,7 @@
-import ndarray from 'ndarray'
-import ops from 'ndarray-ops'
+// import ndarray from 'ndarray'
+// import ops from 'ndarray-ops'
 // import { Tensor, InferenceSession } from 'onnxjs';
-import onnxjs from 'onnxjs'
-// const { Tensor, InferenceSession } = onnxjs;
+// import onnxjs from 'onnxjs'
 
 export function drawCanvas(
   imageSrc,
@@ -50,6 +49,10 @@ export async function prepareAndRunStyle(
   hasLoaded = true
 ) {
   if (hasLoaded) {
+    const onnxjs = 0 //await import('onnxjs')
+    const ops = 0 //await import('ndarray-ops')
+    const ndarray = 0 //(await import('ndarray'))['default']
+    // console.log('ndarray', ndarray['default'])
     let floatData = await getData(imageSrc, imageSize)
     let dataFromImage = ndarray(floatData, [imageSize, imageSize, 4])
     let dataProcessed = ndarray(new Float32Array(imageSize * imageSize * 3), [
