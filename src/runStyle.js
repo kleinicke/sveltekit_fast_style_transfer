@@ -4,21 +4,20 @@ import ops from 'ndarray-ops';
 import onnxjs from 'onnxjs';
 // const { Tensor, InferenceSession } = onnxjs;
 
+const drawImageActualSize = (canvas, ctx, imageSize) => () => {
+	canvas.width = imageSize; //this.naturalWidth;
+	canvas.height = imageSize; //this.naturalHeight;
+	ctx.drawImage(this, 0, 0, this.width, this.height);
+};
+
 export function drawCanvas(imageSrc, canvasName, imageSize, initFinished = true) {
-	console.log('plot', initFinished);
 	if (initFinished) {
 		const canvas = document.getElementById(canvasName);
 		// console.log("c",canvas)
 		const ctx = canvas.getContext('2d');
 		const image = new Image(imageSize, imageSize);
 		image.src = imageSrc;
-		console.log('image', imageSrc, imageSize, image);
-		function drawImageActualSize() {
-			canvas.width = imageSize; //this.naturalWidth;
-			canvas.height = imageSize; //this.naturalHeight;
-			ctx.drawImage(this, 0, 0, this.width, this.height);
-		}
-		image.onload = drawImageActualSize;
+		image.onload = drawImageActualSize(canvas, ctx, imageSize);
 	}
 }
 
